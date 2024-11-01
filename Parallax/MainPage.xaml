@@ -6,13 +6,13 @@
 
     <Grid>
         <Image x:Name="fundao"
-               Source="fundofavela1.png"
+               Source="fundo1.png"
                Aspect="Fill"
                HorizontalOptions="Fill"
                VerticalOptions="Fill"/>
 
         <Image x:Name="fundodois"
-               Source="fundofavela2.png"
+               Source="fundo2.png"
                Aspect="Fill"
                HorizontalOptions="Fill"
                VerticalOptions="Fill"/>
