@@ -1,30 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Parallax.MainPage">
+             x:Class="Parallax.MainPage"
+             Shell.NavBarIsVisible="false">
 
 
-    <Grid>
-        <Image x:Name="fundao"
-               Source="fundo1.png"
-               Aspect="Fill"
-               HorizontalOptions="Fill"
-               VerticalOptions="Fill"/>
+       <Grid>
+       <HorizontalStackLayout x:Name="HsLayer1">
+              <Image  Source="fundo1.png"
+                     Aspect="Fill"
+                     VerticalOptions="Fill"/>
+              <Image Source="fundo1.png"
+                     Aspect="Fill"
+                     VerticalOptions="Fill"/>
+              <Image Source="fundo1.png"
+                     Aspect="Fill"
+                     VerticalOptions="Fill"/>
+       </HorizontalStackLayout>
+              
+         <HorizontalStackLayout x:Name="HsLayer2">
+              <Image Source="fundo2.png"
+                      Aspect="Fill"
+                     VerticalOptions="Fill"/>
+              <Image Source="fundo2.png"
+                      Aspect="Fill"
+                     VerticalOptions="Fill"/>
+              <Image Source="fundo2.png"
+                      Aspect="Fill"
+                     VerticalOptions="Fill"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout x:Name="HsLayer4Chao"
+                     HeightRequest="80"
+                     VerticalOptions="End">
+                     <Image Source="chaotela.jpg"/>
+                     <Image Source="chaotela.jpg"/>
+                     <Image Source="chaotela.jpg"/>
+        </HorizontalStackLayout>
 
-        <Image x:Name="fundodois"
-               Source="fundo2.png"
-               Aspect="Fill"
-               HorizontalOptions="Fill"
-               VerticalOptions="Fill"/>
-
-        <Image x:Name="chao"
-               Source="chaotela.png"
-               HorizontalOptions="Fill"
-               VerticalOptions="End"/>
-
-
-
-
-    </Grid>
+       </Grid>
 
 </ContentPage>
