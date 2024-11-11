@@ -16,14 +16,11 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 	}
-
-	async Task Desenhar()
+	protected override void OnSizeAllocated(double w, double h)
 	{
-		while (!estamorto)
-		{
-			GerenciaImagens();
-			await Task.Delay(tempoentreframes);
-		}
+		base.OnSizeAllocated(w, h);
+		CalculaVelocidade(w);
+		CorrigeTamanho(w, h);
 	}
 
 	void GerenciaImagens(HorizontalStackLayout HSL)
@@ -36,18 +33,6 @@ public partial class MainPage : ContentPage
 			HSL.TranslationX=view.TranslationX;
 		}
 	}
-
-	protected override void OnSizeAllocated(double w, double h)
-	{
-		base.OnSizeAllocated(w, h);
-		CalculaVelocidade(w);
-		CorrigeTamanho(w, h);
-	}
-	protected override void OnAppearing()
-	{
-		base.OnAppearing();
-		Desenhar();
-	}
 	void CalculaVelocidade(double w)
 	{
 		velocidade = (int)(w * 0.01);
@@ -58,31 +43,31 @@ public partial class MainPage : ContentPage
 
 	void CorrigeTamanho(double w, double h)
 	{
-		foreach (var a in HsLayer1.Children)
+		foreach (var a in HSLayer1.Children)
 			(a as Image).WidthRequest = w;
-		foreach (var a in HsLayer2.Children)
+		foreach (var a in HSLayer2.Children)
 			(a as Image).WidthRequest = w;
-		foreach (var a in HsLayer4Chao.Children)
+		foreach (var a in HSLayerChao.Children)
 			(a as Image).WidthRequest = w;
 
-		HsLayer1.WidthRequest = w;
-		HsLayer2.WidthRequest = w;
-		HsLayer4Chao.WidthRequest = w;
+		HSLayer1.WidthRequest = w;
+		HSLayer2.WidthRequest = w;
+		HSLayerChao.WidthRequest = w;
 	}
 
 	void MoveCenario()
 	{
-		HsLayer1.TranslationX-=velocidade1;
-		HsLayer2.TranslationX-=velocidade2;
-        HsLayer4Chao.TranslationX-=velocidade;
+		HSLayer1.TranslationX-=velocidade1;
+		HSLayer2.TranslationX-=velocidade2;
+        HSLayerChao.TranslationX-=velocidade;
 	}
 
 	void GerenciaImagens()
 	{
 		MoveCenario();
-		GerenciaImagens(HsLayer1);
-		GerenciaImagens(HsLayer2);
-		GerenciaImagens(HsLayer4Chao);
+		GerenciaImagens(HSLayer1);
+		GerenciaImagens(HSLayer2);
+		GerenciaImagens(HSLayerChao);
 	}
 
 	async Task Desenha()
@@ -92,6 +77,11 @@ public partial class MainPage : ContentPage
 			GerenciaImagens();
 			await Task.Delay(tempoentreframes);
 		}
+	}
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		Desenha();
 	}
 	
 	
