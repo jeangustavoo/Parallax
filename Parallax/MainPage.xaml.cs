@@ -1,4 +1,5 @@
-﻿namespace Parallax;
+﻿
+namespace Parallax;
 
 public partial class MainPage : ContentPage
 {
@@ -11,6 +12,15 @@ public partial class MainPage : ContentPage
 	int velocidade3 = 0;
 	int larguraJanela = 0;
 	int alturaJanela = 0;
+	const int ForcaGravidade = 6;
+	bool EstaNoChao = true;
+	bool EstaNoAr = false;
+	bool EstaPulando = false;
+	int TempoPulando = 0;
+	int TempoNoAr = 0;
+	const int ForcaPulo = 12;
+	const int maxTempoPulando = 10;
+	const int maxTempoNoAr = 4;
 
 	public MainPage()
 	{
@@ -75,6 +85,13 @@ public partial class MainPage : ContentPage
 		while (!estamorto)
 		{
 			GerenciaImagens();
+			if (!EstaPulando && !EstaNoAr)
+			{
+				AplicaGravidade();
+				Desenha();
+			}
+			else
+				AplicaPulo();
 			await Task.Delay(tempoentreframes);
 		}
 	}
@@ -83,7 +100,51 @@ public partial class MainPage : ContentPage
 		base.OnAppearing();
 		Desenha();
 	}
-	
+	void AplicaPulo()
+	{
+		EstaNoChao = false;
+		if (EstaPulando && TempoPulando >= maxTempoPulando)
+		{
+			EstaPulando = false;
+			EstaNoAr = true;
+			TempoNoAr = 0;
+		}
+		else if (EstaNoAr && TempoNoAr >= maxTempoNoAr)
+		{
+			EstaPulando = false;
+			EstaNoAr = false;
+			TempoPulando = 0;
+			TempoNoAr = 0;
+		}
+		else if (EstaPulando && TempoPulando < maxTempoPulando)
+		{
+			MoveY(-ForcaPulo);
+			TempoPulando++;
+		}
+		else if (EstaNoAr)
+			TempoNoAr++;
+	}
+
+    private void MoveY(int v)
+    {
+        throw new NotImplementedException();
+    }
+
+    void OnGridTapped(object o, TappedEventArgs a)
+	{
+		if (EstaNoChao)
+			EstaPulando = true;
+	}
+	void AplicaGravidade()
+	{
+		if (Player.GetY() < 0)
+			Player.MoveY(ForcaGravidade);
+		else if (Player.GetY() >= 0)
+		{
+			Player.SetY(0);
+			EstaNoChao = true;
+		}
+	}
 	
 
 }
